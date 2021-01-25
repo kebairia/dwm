@@ -127,7 +127,7 @@ static Key keys[] = {
 	/* BRIGHTNESS */
  	{ 0,                            BrightUp,	spawn,	SHCMD("xbacklight -inc 15")  },
  	{ 0,                            BrightDown,	spawn,	SHCMD("xbacklight -dec 15")  },
- 	{ 0,                            Print,		spawn,	SHCMD("scrot '%Y-%m-%d-%s_$wx$h.png' -e 'mv $f ~/pix/shots' &&  notify-send ' Picture saved in ~/pix/shots'")  },
+ 	{ 0,                            Print,		spawn,	SHCMD("scrot '%Y-%m-%d-%s_$wx$h.png' -e 'mv $f ~/pix/shots' &&  ' Picture saved in ~/pix/shots'")  },
  	{MODKEY,                        Print,		spawn,	SHCMD("scrot '%Y-%m-%d-%s_$wx$h.png' -s  -e 'mv $f ~/pix/shots' && notify-send ' Picture saved in ~/pix/shots'")  },
 	/* SCRATCHPADS */
 	{ MODKEY,            		XK_o,  	   togglescratch,  {.ui = 0 } },
