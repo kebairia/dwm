@@ -1,0 +1,79 @@
+* My dwm (dynamic window manager) build
+Screenshot of my desktop Dwm is an extremely fast, small, and dynamic window manager for X.
+Dwm is created by the good folks at [[https://www.suckless.org][suckless.org]].
+This is my personal build of dwm. 
+The patches I added to this build include:
+
+- restartsig (allows dwm to be restarted with a keybinding)
+- actualfullscreen (toggle fullscreen for a window, instead of toggling the status bar and the monocle layout)
+- moveresize (allows you to move and resize dwm's clients using keyboard bindings)
+- noborder (Remove the border when there is only one window visible)
+- scratchpads (enables multiple scratchpads, the same scratchpad workflow in i3)
+
+* Dependencies
+- libxft or [[https://aur.archlinux.org/packages/libxft-bgra/][libxft-bgra]]  (needed for colored emojis)
+- ttf-hack
+- ttf-joypixels
+- st
+- slstatus
+- dmenu
+
+Also, if you are building this on an Ubuntu-based system, you need to install libx11-dev and xorg-dev.
+* Installing dwm on Arch Linux
+
+All you need to do is download this repository. Then run the following command:
+#+begin_src shell
+  git clone https://www.github.com/kebairia/dwm
+  cd dwm
+  sudo make install clean
+#+end_src
+
+*NOTE*: Installing dwm-distrotube will overwrite your existing dwm installation.
+* My Keybindings
+
+The *MODKEY* is set to the Super key (aka the Windows key).
+I try to keep the keybindings consistent with all of my window managers, but if you several of my window manager configs, there may be some discrepancies between them.
+|----------------------+--------------------------------------------------------------------------|
+| Keybinding           | Action                                                                   |
+|----------------------+--------------------------------------------------------------------------|
+| MODKEY + RETURN      | opens terminal (st is the terminal but can be easily changed)            |
+| MODKEY + p           | opens run launcher (dmenu is the run launcher but can be easily changed) |
+| MODKEY + SHIFT + c   | closes window with focus                                                 |
+| MODKEY + SHIFT + r   | restarts dwm                                                             |
+| MODKEY + SHIFT + q   | quits dwm                                                                |
+| MODKEY + 1-9         | switch focus to workspace (1-9)                                          |
+| MODKEY + SHIFT + 1-9 | send focused window to workspace (1-9)                                   |
+| MODKEY + j           | focus stack +1 (switches focus between windows in the stack)             |
+| MODKEY + k           | focus stack -1 (switches focus between windows in the stack)             |
+| MODKEY + SHIFT + j   | rotate stack +1 (rotates the windows in the stack)                       |
+| MODKEY + SHIFT + k   | rotate stack -1 (rotates the windows in the stack)                       |
+| MODKEY + h           | setmfact -0.05 (expands size of window)                                  |
+| MODKEY + l           | setmfact +0.05 (shrinks size of window)                                  |
+| MODKEY + .           | focusmon +1 (switches focus next monitors)                               |
+| MODKEY + ,           | focusmon -1 (switches focus to prev monitors)                            |
+|----------------------+--------------------------------------------------------------------------|
+* Running dwm
+
+If you do not use a login manager (such as lightdm) then you can add the following line to your .xinitrc to start dwm using startx:
+
+~exec dwm~
+
+If you use a login manager (like lightdm), make sure that you have a file called dwm.desktop in your /usr/share/xsessions/ directory.
+It should look something like this:
+
+#+begin_src conf
+[Desktop Entry]
+Encoding=UTF-8
+Name=Dwm
+Comment=Dynamic window manager
+Exec=dwm
+Icon=dwm
+Type=XSession
+#+end_src
+
+* Configuring dwm-distrotube
+
+If you downloaded the source and built my dwm build yourself, then the source in the directory that you downloaded.
+The configuration of dwm is done by editng the ~config.h~ and (re)compiling the source code.
+
+~sudo make install~
