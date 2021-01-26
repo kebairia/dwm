@@ -28,7 +28,8 @@ All you need to do is download this repository. Then run the following command:
   sudo make install clean
 #+end_src
 
-*NOTE*: Installing dwm-distrotube will overwrite your existing dwm installation.
+*NOTE*: Installing dwm will overwrite your existing dwm installation.
+
 * My Keybindings
 
 The *MODKEY* is set to the Super key (aka the Windows key).
@@ -71,7 +72,7 @@ Icon=dwm
 Type=XSession
 #+end_src
 
-* Configuring dwm-distrotube
+* Configuring dwm
 
 If you downloaded the source and built my dwm build yourself, then the source in the directory that you downloaded.
 The configuration of dwm is done by editng the ~config.h~ and (re)compiling the source code.
