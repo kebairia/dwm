@@ -29,6 +29,7 @@ All you need to do is download this repository. Then run the following command:
 #+end_src
 
 *NOTE*: Installing dwm-distrotube will overwrite your existing dwm installation.
+
 * My Keybindings
 
 The *MODKEY* is set to the Super key (aka the Windows key).
