@@ -1,5 +1,8 @@
 * My dwm (dynamic window manager) build
 Screenshot of my desktop Dwm is an extremely fast, small, and dynamic window manager for X.
+[[file:img/img1.png]]
+[[file:img/img2.png]]
+[[file:img/img3.png]]
 Dwm is created by the good folks at [[https://www.suckless.org][suckless.org]].
 This is my personal build of dwm. 
 The patches I added to this build include:
