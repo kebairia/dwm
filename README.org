@@ -1,11 +1,11 @@
 * My dwm (dynamic window manager) build
-Screenshot of my desktop Dwm is an extremely fast, small, and dynamic window manager for X.
+Screenshots of my personal *dwm* build.
 [[file:img/img1.png]]
 [[file:img/img2.png]]
 [[file:img/img3.png]]
 [[file:img/img4.png]]
-Dwm is created by the good folks at [[https://www.suckless.org][suckless.org]].
-This is my personal build of dwm. 
+is an extremely fast, small, and dynamic window manager for X.
+*dwm* is created by the [[https://www.suckless.org][suckless.org]] community.
 The patches I added to this build include:
 
 - restartsig (allows dwm to be restarted with a keybinding)
@@ -16,13 +16,14 @@ The patches I added to this build include:
 
 * Dependencies
 - libxft or [[https://aur.archlinux.org/packages/libxft-bgra/][libxft-bgra]]  (needed for colored emojis)
-- ttf-hack
+- ttf-fira-sans
+- ttf-font-awesome (version 5)
 - ttf-joypixels
-- st
-- slstatus
-- dmenu
+- st (suckless terminal, checkout my personal build [[https://www.github.com/kebairia/st][HERE]])
+- slstatus (suckless status bar)
+- dmenu (app launcher)
 
-Also, if you are building this on an Ubuntu-based system, you need to install libx11-dev and xorg-dev.
+Also, if you are building this on an Ubuntu-based system, you need to install ~libx11-dev~ and ~xorg-dev~.
 * Installing dwm on Arch Linux
 
 All you need to do is download this repository. Then run the following command:
@@ -38,25 +39,29 @@ All you need to do is download this repository. Then run the following command:
 
 The *MODKEY* is set to the Super key (aka the Windows key).
 I try to keep the keybindings consistent with all of my window managers, but if you several of my window manager configs, there may be some discrepancies between them.
-|----------------------+--------------------------------------------------------------------------|
-| Keybinding           | Action                                                                   |
-|----------------------+--------------------------------------------------------------------------|
-| MODKEY + RETURN      | opens terminal (st is the terminal but can be easily changed)            |
-| MODKEY + p           | opens run launcher (dmenu is the run launcher but can be easily changed) |
-| MODKEY + SHIFT + c   | closes window with focus                                                 |
-| MODKEY + SHIFT + r   | restarts dwm                                                             |
-| MODKEY + SHIFT + q   | quits dwm                                                                |
-| MODKEY + 1-9         | switch focus to workspace (1-9)                                          |
-| MODKEY + SHIFT + 1-9 | send focused window to workspace (1-9)                                   |
-| MODKEY + j           | focus stack +1 (switches focus between windows in the stack)             |
-| MODKEY + k           | focus stack -1 (switches focus between windows in the stack)             |
-| MODKEY + SHIFT + j   | rotate stack +1 (rotates the windows in the stack)                       |
-| MODKEY + SHIFT + k   | rotate stack -1 (rotates the windows in the stack)                       |
-| MODKEY + h           | setmfact -0.05 (expands size of window)                                  |
-| MODKEY + l           | setmfact +0.05 (shrinks size of window)                                  |
-| MODKEY + .           | focusmon +1 (switches focus next monitors)                               |
-| MODKEY + ,           | focusmon -1 (switches focus to prev monitors)                            |
-|----------------------+--------------------------------------------------------------------------|
+|---------------------------+--------------------------------------------------------------------------|
+| Keybinding                | Action                                                                   |
+|---------------------------+--------------------------------------------------------------------------|
+| MODKEY + RETURN           | opens terminal (st is the terminal but can be easily changed)            |
+| MODKEY + p                | opens run launcher (dmenu is the run launcher but can be easily changed) |
+| MODKEY + SHIFT + r        | restarts dwm                                                             |
+| MODKEY + SHIFT + q        | quits dwm                                                                |
+| MODKEY + 1-9              | switch focus to workspace (1-9)                                          |
+| MODKEY + SHIFT + 1-9      | send focused window to workspace (1-9)                                   |
+| MODKEY + j                | focus stack +1 (switches focus between windows in the stack)             |
+| MODKEY + k                | focus stack -1 (switches focus between windows in the stack)             |
+| MODKEY + SHIFT + j        | move window downwards                                                    |
+| MODKEY + SHIFT + k        | move window upwards                                                      |
+| MODKEY + SHIFT + l        | move window to the right                                                 |
+| MODKEY + SHIFT + h        | move focused window to the left                                          |
+| MODKEY + SHIFT + CTRL + j | expands size of window (horizontally)                                    |
+| MODKEY + SHIFT + CTRL + k | shrinks size of window (horizontally)                                    |
+| MODKEY + SHIFT + CTRL + h | expands size of window (vertically)                                      |
+| MODKEY + SHIFT + CTRL + l | shrinks size of window (vertically)                                      |
+| MODKEY + o                | toggle my general scratchpad                                             |
+| MODKEY + m                | toggle my music scratchpad                                               |
+| MODKEY + q                | toggle my calc scratchpad                                                |
+|---------------------------+--------------------------------------------------------------------------|
 * Running dwm
 
 If you do not use a login manager (such as lightdm) then you can add the following line to your .xinitrc to start dwm using startx:
