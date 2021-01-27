@@ -4,7 +4,8 @@ Screenshots of my personal *dwm* build.
 [[file:img/img2.png]]
 [[file:img/img3.png]]
 [[file:img/img4.png]]
-is an extremely fast, small, and dynamic window manager for X.
+*dwm* is an extremely fast, small, and dynamic window manager for X.
+
 *dwm* is created by the [[https://www.suckless.org][suckless.org]] community.
 The patches I added to this build include:
 
