@@ -115,8 +115,8 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_n, 	   	spawn,	SHCMD("_emoji")  },
 	{ MODKEY|ShiftMask,             XK_n, 	   	spawn,	SHCMD("_awesomefonts")  },
 	/* VOLUME */
-	{0,                             AudioDown,	spawn,	SHCMD("amixer -q -D pulse sset Master 5%- unmute; pkill -RTMIN+10 dwmblocks")  },
-	{0,                             AudioUp,	spawn,	SHCMD("amixer -q -D pulse sset Master 5%+ unmute; pkill -RTMIN+10 dwmblocks")  },
+	{0,                             AudioDown,	spawn,	SHCMD("amixer -q -D pulse sset Master 5%- unmute ")  },
+	{0,                             AudioUp,	spawn,	SHCMD("amixer -q -D pulse sset Master 5%+ unmute")  },
 	{0,                             AudioMute,	spawn,	SHCMD("amixer -q -D pulse sset Master toggle; pkill -RTMIN+10 dwmblocks")  },
 	{0,                             AudioPlay,	spawn,	SHCMD("mpc toggle")  },
 	{0,                             AudioNext,	spawn,	SHCMD("mpc next")  },
