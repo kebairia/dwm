@@ -46,6 +46,7 @@ static const Rule rules[] = {
 	{ "Gimp",     	   	NULL,       NULL,       1<<3,            	 0,           -1 },
 	{ "Emacs",    	   	NULL,       NULL,       2,            	 0,           -1 },
 	{ "firefox",  	   	NULL,       NULL,       1,       	 0,           -1 },
+	{ "Brave-browser",  	   	NULL,       NULL,       1,       	 0,           -1 },
 	{ "Virt-manager",  	NULL,       NULL,       1<<8,       	 0,           -1 },
 	{ "VirtualBox Manager", NULL,       NULL,       1<<8,       	 0,           -1 },
 	{ "Inkscape",  		NULL,       NULL,       1<<4,       	 0,           -1 },
