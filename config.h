@@ -9,7 +9,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Fira Sans:size=11" };
 static const char dmenufont[]       = "Fira Code:size=12";
-static const char col_gray1[]       = "#1d2021";
+static const char col_gray1[]       = "#212021";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
@@ -80,6 +80,7 @@ static const Layout layouts[] = {
 #define AudioPrev	0x1008ff16
 #define AudioDown	0x1008ff11
 #define AudioUp		0x1008ff13
+//#define TouchPad	0x1008ffa9
 #define Print		0xff61
 #define MODKEY 		Mod4Mask
 
