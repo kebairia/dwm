@@ -19,16 +19,28 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+static const char *tags[] = { " ", " ", "", "", "", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class      instance    title       tags mask     isfloating   monitor    scratch key */
+	{ "Emacs",    	   	NULL,       NULL,       2,            	 0,           -1 },
+	{ "firefox",  	   	NULL,       NULL,       1,       	 0,           -1 },
+	{ "Brave-browser",  	   	NULL,       NULL,       1,       	 0,           -1 },
+	{ "Virt-manager",  	NULL,       NULL,       1<<8,       	 0,           -1 },
+	{ "VirtualBox Manager", NULL,       NULL,       1<<8,       	 0,           -1 },
+	{ "Inkscape",  		NULL,       NULL,       1<<4,       	 0,           -1 },
+	{ "Gimp",  		NULL,       NULL,       1<<4,       	 0,           -1 },
+	{ "discord",  		NULL,       NULL,       1<<3,       	 0,           -1 },
+	{ NULL,	      	  	NULL,       "neomutt",	1<<3,	 	 0,	      -1 },
+	{ NULL,	      	  	NULL,       "newsboat",	1<<3,	 	 0,	      -1 },
+    //SCRATCHPADS
+	{ NULL,       NULL,       "spterm",   0,            1,           -1,       's' },
+	{ NULL,       NULL,       "spfm",     0,            1,           -1,       'f' },
+	{ NULL,       NULL,       "spcalc",   0,            1,           -1,       'c' },
 };
 
 /* layout(s) */
@@ -59,11 +71,22 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+/*First arg only serves to match against key in rules*/
+static const char *spterm[] = {"s", "st", "-t", "spterm", "-g", "95x30", NULL}; 
+static const char *spfm[] = {"f", "st", "-t", "spfm", "-g", "95x30", "-e", "ncmpcpp", NULL}; 
+
+static const char *spcalc[] = {"c", "st", "-t", "spcalc", "-f", "FantasqueSansMono-Regular:pixelsize=27", "-g", "55x10", "-e", "python", "-q" , NULL}; 
+
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+    //SCRATCHPADS
+	{ MODKEY,                       XK_o,      togglescratch,  {.v = spterm } },
+	{ MODKEY,                       XK_m,      togglescratch,  {.v = spfm } },
+	{ MODKEY,                       XK_q,      togglescratch,  {.v = spcalc } },
+
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -73,7 +96,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	//{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
@@ -94,7 +117,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+    { MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
 };
 
 /* button definitions */
