@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+/*Constants*/
+#define TERMINAL "st"
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -57,6 +59,16 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
+#define BrightDown	0x1008ff03
+#define BrightUp	0x1008ff02
+#define AudioMute	0x1008ff12
+#define AudioPlay	0x1008ff14
+#define AudioNext	0x1008ff17
+#define AudioPrev	0x1008ff16
+#define AudioDown	0x1008ff11
+#define AudioUp		0x1008ff13
+#define Print		0xff61
+
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
