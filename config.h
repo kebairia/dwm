@@ -85,15 +85,45 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 /*First arg only serves to match against key in rules*/
 static const char *spterm[] = {"s", "st", "-t", "spterm", "-g", "95x30", NULL}; 
-static const char *spfm[] = {"f", "st", "-t", "spfm", "-g", "95x30", "-e", "ncmpcpp", NULL}; 
-
+static const char *spfm[]   = {"f", "st", "-t", "spfm", "-g", "95x30", "-e", "ncmpcpp", NULL};
 static const char *spcalc[] = {"c", "st", "-t", "spcalc", "-f", "FantasqueSansMono-Regular:pixelsize=27", "-g", "55x10", "-e", "python", "-q" , NULL}; 
 
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	/* STARTING SCRIPTS */
+	{ MODKEY,                       XK_Return, 	spawn,	SHCMD("$TERMINAL")  },
+	{ MODKEY|ShiftMask,             XK_w, 	   	spawn,	SHCMD("$BROWSER")  },
+	{ MODKEY,	             	    XK_i, 	   	spawn,	SHCMD("$TERMINAL -e $FILE")  },
+	{ MODKEY|ShiftMask,	            XK_e, 	   	spawn,	SHCMD("$TERMINAL -e neomutt")  },
+	{ MODKEY,	        	        XK_n, 	   	spawn,	SHCMD("$TERMINAL -e newsboat")  },
+	{ MODKEY|ShiftMask,	            XK_y, 	   	spawn,	SHCMD("mpt")  },
+	{ MODKEY,	       		        XK_s, 	   	spawn,	SHCMD("$TERMINAL -e htop")  },
+	{ MODKEY|ShiftMask,	            XK_p, 	   	spawn,	SHCMD("passmenu")  },
+	{ MODKEY|ControlMask,           XK_m, 	   	spawn,	SHCMD("emacsclient --create-frame --alternate-editor ''")},
+	{ MODKEY|ShiftMask,             XK_m, 	   	spawn,	SHCMD("monitors")  },
+	{ MODKEY|ShiftMask|ControlMask, XK_m, 	   	spawn,	SHCMD("manview")  },
+	{ MODKEY,                       XK_u, 	   	spawn,	SHCMD("_mount")  },
+	{ MODKEY|ShiftMask,             XK_u, 	   	spawn,	SHCMD("_umount")  },
+	{ MODKEY|ControlMask,           XK_n, 	   	spawn,	SHCMD("_emoji")  },
+	{ MODKEY|ShiftMask,             XK_n, 	   	spawn,	SHCMD("_awesomefonts")  },
+	{ MODKEY|ControlMask,           XK_e,	    spawn,	SHCMD("emacsclient --eval '(emacs-everywhere)'")  },
+	/* VOLUME */
+	{0,                             AudioDown,	spawn,	SHCMD("amixer -q -D pulse sset Master 5%- unmute ")  },
+	{0,                             AudioUp,	spawn,	SHCMD("amixer -q -D pulse sset Master 5%+ unmute")  },
+	{0,                             AudioMute,	spawn,	SHCMD("amixer -q -D pulse sset Master toggle; pkill -RTMIN+10 dwmblocks")  },
+	{0,                             AudioPlay,	spawn,	SHCMD("mpc toggle")  },
+	{0,                             AudioNext,	spawn,	SHCMD("mpc next")  },
+	{0,                             AudioPrev,	spawn,	SHCMD("mpc prev")  },
+	{MODKEY,                        AudioPlay,	spawn,	SHCMD("mpc seek 0")  },
+	{MODKEY,                        AudioNext,	spawn,	SHCMD("mpc seek +10")  },
+	{MODKEY,                        AudioPrev,	spawn,	SHCMD("mpc seek -10")  },
+	/* BRIGHTNESS */
+ 	{ 0,                            BrightUp,	spawn,	SHCMD("xbacklight -inc 15")  },
+ 	{ 0,                            BrightDown,	spawn,	SHCMD("xbacklight -dec 15")  },
+ 	{ 0,                            Print,		spawn,	SHCMD("scrot '%Y-%m-%d-%s_$wx$h.png' -e 'mv $f ~/pix/shots' && notify-send ' Picture saved in ~/pix/shots'")  },
+ 	{MODKEY,                        Print,		spawn,	SHCMD("scrot '%Y-%m-%d-%s_$wx$h.png' -s  -e 'mv $f ~/pix/shots' && notify-send ' Picture saved in ~/pix/shots'")  },
     //SCRATCHPADS
 	{ MODKEY,                       XK_o,      togglescratch,  {.v = spterm } },
 	{ MODKEY,                       XK_m,      togglescratch,  {.v = spfm } },
