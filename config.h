@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+/*Constants*/
+#define TERMINAL "st"
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -15,20 +17,32 @@ static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeSel]  = { col_gray4, col_gray1,  col_cyan  },
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class      instance    title       tags mask     isfloating   monitor    scratch key */
+	{ "Emacs",    	   	NULL,       NULL,       2,            	 0,           -1 },
+	{ "firefox",  	   	NULL,       NULL,       1,       	 0,           -1 },
+	{ "Brave-browser",  	   	NULL,       NULL,       1,       	 0,           -1 },
+	{ "Virt-manager",  	NULL,       NULL,       1<<8,       	 0,           -1 },
+	{ "VirtualBox Manager", NULL,       NULL,       1<<8,       	 0,           -1 },
+	{ "Inkscape",  		NULL,       NULL,       1<<4,       	 0,           -1 },
+	{ "Gimp",  		NULL,       NULL,       1<<4,       	 0,           -1 },
+	{ "discord",  		NULL,       NULL,       1<<3,       	 0,           -1 },
+	{ NULL,	      	  	NULL,       "neomutt",	1<<3,	 	 0,	      -1 },
+	{ NULL,	      	  	NULL,       "newsboat",	1<<3,	 	 0,	      -1 },
+    //SCRATCHPADS
+	{ NULL,       NULL,       "spterm",   0,            1,           -1,       's' },
+	{ NULL,       NULL,       "spfm",     0,            1,           -1,       'f' },
+	{ NULL,       NULL,       "spcalc",   0,            1,           -1,       'c' },
 };
 
 /* layout(s) */
@@ -45,6 +59,16 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
+#define BrightDown	0x1008ff03
+#define BrightUp	0x1008ff02
+#define AudioMute	0x1008ff12
+#define AudioPlay	0x1008ff14
+#define AudioNext	0x1008ff17
+#define AudioPrev	0x1008ff16
+#define AudioDown	0x1008ff11
+#define AudioUp		0x1008ff13
+#define Print		0xff61
+
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
@@ -59,24 +83,65 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+/*First arg only serves to match against key in rules*/
+static const char *spterm[] = {"s", "st", "-t", "spterm", "-g", "95x30", NULL}; 
+static const char *spfm[]   = {"f", "st", "-t", "spfm", "-g", "95x30", "-e", "ncmpcpp", NULL};
+static const char *spcalc[] = {"c", "st", "-t", "spcalc", "-f", "FantasqueSansMono-Regular:pixelsize=27", "-g", "55x10", "-e", "python", "-q" , NULL}; 
+
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	/* STARTING SCRIPTS */
+	{ MODKEY,                       XK_Return, 	spawn,	SHCMD("$TERMINAL")  },
+	{ MODKEY|ShiftMask,             XK_w, 	   	spawn,	SHCMD("$BROWSER")  },
+	{ MODKEY,	             	    XK_i, 	   	spawn,	SHCMD("$TERMINAL -e $FILE")  },
+	{ MODKEY|ShiftMask,	            XK_e, 	   	spawn,	SHCMD("$TERMINAL -e neomutt")  },
+	{ MODKEY,	        	        XK_n, 	   	spawn,	SHCMD("$TERMINAL -e newsboat")  },
+	{ MODKEY|ShiftMask,	            XK_y, 	   	spawn,	SHCMD("mpt")  },
+	{ MODKEY,	       		        XK_s, 	   	spawn,	SHCMD("$TERMINAL -e htop")  },
+	{ MODKEY|ShiftMask,	            XK_p, 	   	spawn,	SHCMD("passmenu")  },
+	{ MODKEY|ControlMask,           XK_m, 	   	spawn,	SHCMD("emacsclient --create-frame --alternate-editor ''")},
+	{ MODKEY|ShiftMask,             XK_m, 	   	spawn,	SHCMD("monitors")  },
+	{ MODKEY|ShiftMask|ControlMask, XK_m, 	   	spawn,	SHCMD("manview")  },
+	{ MODKEY,                       XK_u, 	   	spawn,	SHCMD("_mount")  },
+	{ MODKEY|ShiftMask,             XK_u, 	   	spawn,	SHCMD("_umount")  },
+	{ MODKEY|ControlMask,           XK_n, 	   	spawn,	SHCMD("_emoji")  },
+	{ MODKEY|ShiftMask,             XK_n, 	   	spawn,	SHCMD("_awesomefonts")  },
+	{ MODKEY|ControlMask,           XK_e,	    spawn,	SHCMD("emacsclient --eval '(emacs-everywhere)'")  },
+	/* VOLUME */
+	{0,                             AudioDown,	spawn,	SHCMD("amixer -q -D pulse sset Master 5%- unmute ")  },
+	{0,                             AudioUp,	spawn,	SHCMD("amixer -q -D pulse sset Master 5%+ unmute")  },
+	{0,                             AudioMute,	spawn,	SHCMD("amixer -q -D pulse sset Master toggle; pkill -RTMIN+10 dwmblocks")  },
+	{0,                             AudioPlay,	spawn,	SHCMD("mpc toggle")  },
+	{0,                             AudioNext,	spawn,	SHCMD("mpc next")  },
+	{0,                             AudioPrev,	spawn,	SHCMD("mpc prev")  },
+	{MODKEY,                        AudioPlay,	spawn,	SHCMD("mpc seek 0")  },
+	{MODKEY,                        AudioNext,	spawn,	SHCMD("mpc seek +10")  },
+	{MODKEY,                        AudioPrev,	spawn,	SHCMD("mpc seek -10")  },
+	/* BRIGHTNESS */
+ 	{ 0,                            BrightUp,	spawn,	SHCMD("xbacklight -inc 15")  },
+ 	{ 0,                            BrightDown,	spawn,	SHCMD("xbacklight -dec 15")  },
+ 	{ 0,                            Print,		spawn,	SHCMD("scrot '%Y-%m-%d-%s_$wx$h.png' -e 'mv $f ~/pix/shots' && notify-send ' Picture saved in ~/pix/shots'")  },
+ 	{MODKEY,                        Print,		spawn,	SHCMD("scrot '%Y-%m-%d-%s_$wx$h.png' -s  -e 'mv $f ~/pix/shots' && notify-send ' Picture saved in ~/pix/shots'")  },
+    //SCRATCHPADS
+	{ MODKEY,                       XK_o,      togglescratch,  {.v = spterm } },
+	{ MODKEY,                       XK_m,      togglescratch,  {.v = spfm } },
+	{ MODKEY,                       XK_q,      togglescratch,  {.v = spcalc } },
+
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	//{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY,                       XK_e,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_w,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
@@ -95,7 +160,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+    { MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
+	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} }, 
 };
 
 /* button definitions */
