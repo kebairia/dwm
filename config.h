@@ -110,9 +110,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_n, 	   	spawn,	SHCMD("_awesomefonts")  },
 	{ MODKEY|ControlMask,           XK_e,	    spawn,	SHCMD("emacsclient --eval '(emacs-everywhere)'")  },
 	/* VOLUME */
-	{0,                             AudioDown,	spawn,	SHCMD("amixer -q -D pulse sset Master 5%- unmute ")  },
-	{0,                             AudioUp,	spawn,	SHCMD("amixer -q -D pulse sset Master 5%+ unmute")  },
-	{0,                             AudioMute,	spawn,	SHCMD("amixer -q -D pulse sset Master toggle; pkill -RTMIN+10 dwmblocks")  },
+	{0,                             AudioDown,	spawn,	SHCMD("amixer -q -D ${CARD} sset Master 5%- unmute ")  },
+	{0,                             AudioUp,	spawn,	SHCMD("amixer -q -D ${CARD} sset Master 5%+ unmute")  },
+	{0,                             AudioMute,	spawn,	SHCMD("amixer -q -D ${CARD} sset Master toggle")  },
 	{0,                             AudioPlay,	spawn,	SHCMD("mpc toggle")  },
 	{0,                             AudioNext,	spawn,	SHCMD("mpc next")  },
 	{0,                             AudioPrev,	spawn,	SHCMD("mpc prev")  },
